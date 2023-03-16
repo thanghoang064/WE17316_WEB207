@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width='device-width', initial-scale=1.0">
+    <title>Document</title>
+    <!-- Nhúng thư viện angular js vào -->
+    <script src="libs/angular.min.js"></script>
+</head>
+<body ng-app="myapp">
+    <div ng-controller="demoController">
+       <h1> {{ welcome }} </h1>
+    </div> 
+    <div ng-controller="infoController">
+        <table>
+            <tr>
+                <td>Tên</td>
+                <td>{{ info[0].name }}</td>
+            </tr>
+            <tr>
+                <td>tuổi</td>
+                <td>{{ info[0].age }}</td>
+            </tr>
+            <tr>
+                <td>sdt</td>
+                <td>{{ info[0].phone }}</td>
+            </tr>
+            
+        </table>
+    </div>
+</body>
+<script>
+    //viết thường
+    function myFunc($scope) { // tham số scope luôn luôn phải có để render dữ liệu ra view
+        $scope.welcome = "Hello  wolrd"; 
+        // sau $scope là biến được khai báo để render dữ liệu ra view
+    }
+    // set angular js cho vùng myapp
+    var app = angular.module("myapp",[]);
+    //map hàm myFunc với vùng demoController 
+    app.controller("demoController",myFunc);
+    //viết tắt 
+    app.controller("infoController",function($scope){
+        // $scope.name = "nguyen van a";
+        // $scope.age = 19;
+        // $scope.phone = "09213213";
+            $scope.info = [{
+                name:"Nguyễn Văn A",
+                age:19,
+                phone:"09212123"
+            },
+            {
+                name:"Nguyễn Văn B",
+                age:20,
+                phone:"094332422123"
+            }
+            ];
+    })
+    // tạo 1 vùng div infoController 
+    // tạo 1 hàm myInfo map với infoControler và tạo ra các biến 
+    //ten,tuoi,sdt 
+    //yêu cầu hiển thị ra như trên bảng 
+</script>
+</html>
