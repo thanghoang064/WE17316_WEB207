@@ -9,9 +9,9 @@
     <script src="libs/angular.min.js"></script>
 </head>
 <body ng-app="myapp">
-    <div ng-controller="demoController">
+    <!-- <div ng-controller="demoController">
        <h1> {{ welcome }} </h1>
-    </div> 
+    </div>  -->
     <div ng-controller="infoController">
         <table>
             <tr>
@@ -28,38 +28,31 @@
             </tr>
             
         </table>
+        <h1>{{ welcome }}</h1>
+        <h1 ng-bind="welcome"></h1>
+        <button ng-click="sayHello()">Ấn vào đây!</button>
+        <input type="text" ng-model="test" />
+        <select ng-model="doibong">
+            <option value="1">Mu</option>
+            <option value="2">Mc</option>
+            <option value="3">Arsenal</option>
+        </select>
+        Nam
+        <input type="radio" ng-model="gioitinh" value="1" />
+        Nữ
+        <input type="radio" ng-model="gioitinh" value="2" />
+        Bê đê
+        <input type="radio" ng-model="gioitinh" value="3" />
+        {{ thongbao }}
     </div>
 </body>
+<script src="app.js"></script>
 <script>
-    //viết thường
-    function myFunc($scope) { // tham số scope luôn luôn phải có để render dữ liệu ra view
-        $scope.welcome = "Hello  wolrd"; 
-        // sau $scope là biến được khai báo để render dữ liệu ra view
-    }
-    // set angular js cho vùng myapp
-    var app = angular.module("myapp",[]);
-    //map hàm myFunc với vùng demoController 
-    app.controller("demoController",myFunc);
-    //viết tắt 
-    app.controller("infoController",function($scope){
-        // $scope.name = "nguyen van a";
-        // $scope.age = 19;
-        // $scope.phone = "09213213";
-            $scope.info = [{
-                name:"Nguyễn Văn A",
-                age:19,
-                phone:"09212123"
-            },
-            {
-                name:"Nguyễn Văn B",
-                age:20,
-                phone:"094332422123"
-            }
-            ];
-    })
-    // tạo 1 vùng div infoController 
-    // tạo 1 hàm myInfo map với infoControler và tạo ra các biến 
-    //ten,tuoi,sdt 
-    //yêu cầu hiển thị ra như trên bảng 
+    // //viết thường
+    // function myFunc($scope) { // tham số scope luôn luôn phải có để render dữ liệu ra view
+    //     $scope.welcome = "Hello  wolrd"; 
+    //     // sau $scope là biến được khai báo để render dữ liệu ra view
+    // }
+   
 </script>
 </html>
