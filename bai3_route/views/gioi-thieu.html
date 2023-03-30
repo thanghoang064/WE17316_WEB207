@@ -12,4 +12,17 @@
         </tr>
     </table>
     <button ng-click="onSubmitForm()">Lưu</button>
+    <table border="1">
+        <tr>
+            <td>Họ tên</td>
+            <td>Tuổi</td>
+            <td>Hành động</td>
+        </tr>
+        <tr ng-repeat="ds in danhsach">
+            <td>{{ ds.ten }}</td>
+            <td>{{ ds.tuoi }}</td>
+            <td><button ng-click="onEdit(ds.id)">Sửa</button></td>
+            <td><button ng-click="onDelete(ds.id)">Xóa</button></td>
+        </tr>
+    </table>
 </div>
