@@ -1,4 +1,4 @@
-window.GioiThieuController = function($scope,$routeParams) {
+window.GioiThieuController = function($scope,$routeParams,$http) {
     // $routeParams là đối tượng chứa giá trị param trên url 
     // console.log($routeParams.name1);
     // tạo ra 1 đối tượng kiểm tra dữ liệu
@@ -6,10 +6,22 @@ window.GioiThieuController = function($scope,$routeParams) {
         ten:false,
         tuoi:false
     }
-    $scope.danhsach = [
-        {id:1,ten:"Nguyễn Văn A",tuoi:20},
-        {id:2,ten:"Nguyễn Văn B",tuoi:21}
-    ]
+    //$http là giao thức call API 
+    let apiUrl = "http://localhost:3000/hihi";//định nghĩa đường dẫn  API mà mình muốn gọi 
+    $scope.getData = function(){
+        $http.get(apiUrl).then(function (response){
+            // khi gọi thành công trả về 1 đối tượng ở trong response 
+           // console.log(response.data);
+           if(response.status == 200) {
+                $scope.danhsach = response.data;
+           }
+        })
+    }
+    $scope.getData();
+    // $scope.danhsach = [
+    //     {id:1,ten:"Nguyễn Văn A",tuoi:20},
+    //     {id:2,ten:"Nguyễn Văn B",tuoi:21}
+    // ]
     $scope.onClose = function() {
         $scope.inputValue = {
             ten:"",
@@ -46,16 +58,25 @@ window.GioiThieuController = function($scope,$routeParams) {
                 return;
             }
             // xử lý thêm  
-            let ds = $scope.danhsach;
+            // let ds = $scope.danhsach;
             //fake id 
-            let newId = ds.length > 0 ? ds[ds.length-1].id + 1 : 1;
+            // let newId = ds.length > 0 ? ds[ds.length-1].id + 1 : 1;
             let newItem = {
-                id:newId,
+                // id:newId,
                 ten: $scope.inputValue.ten,
                 tuoi: $scope.inputValue.tuoi 
             }
+            $http.post(
+                apiUrl,//Đường dẫn API 
+                newItem // dữ liệu mới để thêm
+            ).then(
+                function (response) {
+                    // console.log(response);
+                    $scope.getData();
+                }
+            )
             //thực hiện push đối tượng vào array 
-            $scope.danhsach.push(newItem);
+            // $scope.danhsach.push(newItem);
             $scope.onClose();
         }
     }
