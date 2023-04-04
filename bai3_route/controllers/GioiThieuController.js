@@ -48,12 +48,27 @@ window.GioiThieuController = function($scope,$routeParams,$http) {
             let editId = $scope.editId;
             //nếu như tồn tại editId
             if(editId) {
-                for(let i = 0;i<$scope.danhsach.length;i++) {
-                    if($scope.danhsach[i].id == editId) {
-                        $scope.danhsach[i].ten = $scope.inputValue.ten;
-                        $scope.danhsach[i].tuoi = $scope.inputValue.tuoi;
-                    }
+                // for(let i = 0;i<$scope.danhsach.length;i++) {
+                //     if($scope.danhsach[i].id == editId) {
+                //         $scope.danhsach[i].ten = $scope.inputValue.ten;
+                //         $scope.danhsach[i].tuoi = $scope.inputValue.tuoi;
+                //     }
+                // }
+                // khai báo đối tượng sửa
+                let updateItem  = {
+                    ten:$scope.inputValue.ten,
+                    tuoi:$scope.inputValue.tuoi
                 }
+                $http.put(
+                    `${apiUrl}/${editId}`, //đường dẫn url sửa theo id
+                    updateItem // 
+                ).then(function(response){
+                    if(response.status == 200) {
+                        //gọi lại hàm getData để call lại dữ liệu mới nhất
+                        // từ json server về 
+                        $scope.getData();
+                    }
+                })
                 $scope.onClose();
                 return;
             }
@@ -82,22 +97,32 @@ window.GioiThieuController = function($scope,$routeParams,$http) {
     }
     $scope.onEdit = function(editId) {
         $scope.editId = editId;
+        //gọi api 
+        $http.get(`${apiUrl}/${editId}`).then(function(response){
+            // console.log(response);
+            if(response.status == 200){ // thành công
+                $scope.inputValue = {
+                    ten:response.data.ten,
+                    tuoi:response.data.tuoi
+                }
+            }
+        })
         //tạo ra 1 đối tượng sửa 
-        let editItem = {
-            ten:"",
-            tuoi:""
-        }
-        for(let i = 0;i < $scope.danhsach.length; i++) {
-            if($scope.danhsach[i].id == editId) {
-                editItem.ten = $scope.danhsach[i].ten;
-                editItem.tuoi = $scope.danhsach[i].tuoi;
-            }  
-        }
+        // let editItem = {
+        //     ten:"",
+        //     tuoi:""
+        // }
+        // for(let i = 0;i < $scope.danhsach.length; i++) {
+        //     if($scope.danhsach[i].id == editId) {
+        //         editItem.ten = $scope.danhsach[i].ten;
+        //         editItem.tuoi = $scope.danhsach[i].tuoi;
+        //     }  
+        // }
         // bắn dữ liệu lên form 
-        $scope.inputValue = {
-            ten:editItem.ten,
-            tuoi:editItem.tuoi
-        }
+        // $scope.inputValue = {
+        //     ten:editItem.ten,
+        //     tuoi:editItem.tuoi
+        // }
     }
     $scope.onDelete = function (deleteId) {
         let confirm = window.confirm("bạn có muốn xóa không ???");
