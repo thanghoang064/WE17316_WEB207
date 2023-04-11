@@ -31,7 +31,7 @@
 <script>
     //Định nghĩa khu vực sử dụng angular và điều hướng route
     angular.module('app-route',['ngRoute']).config(function($routeProvider){
-        $routeProvider.when('/trang-chu',{ // định nghĩa route trang chủ 
+        $routeProvider.when('/trang-chu/:id/edit',{ // định nghĩa route trang chủ 
             templateUrl:'views/trang-chu.html',//đường dẫn đến view 
             controller: TrangChuController // tên controller cần map với view
         }).when('/gioi-thieu/:name1',{ // định nghĩa route trang chủ 

@@ -1,7 +1,9 @@
-window.GioiThieuController = function($scope,$routeParams,$http) {
+window.GioiThieuController = function($scope,$routeParams,$http,$location) {
     // $routeParams là đối tượng chứa giá trị param trên url 
     // console.log($routeParams.name1);
     // tạo ra 1 đối tượng kiểm tra dữ liệu
+    //tham số $location dùng để hỗ trợ chuyển trang 
+    // $location.path('tên route cần chuyển');
     $scope.kiemTraDuLieu = {
         ten:false,
         tuoi:false
@@ -97,6 +99,7 @@ window.GioiThieuController = function($scope,$routeParams,$http) {
     }
     $scope.onEdit = function(editId) {
         $scope.editId = editId;
+        $location.path(`trang-chu/${editId}/edit`); //  nhảy sang trang chủ 
         //gọi api 
         $http.get(`${apiUrl}/${editId}`).then(function(response){
             // console.log(response);
